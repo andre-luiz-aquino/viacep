@@ -34,7 +34,7 @@ class _BuscarCEP extends State<BuscarCEP> {
       endereco = "${dadosCep["logradouro"]}, ${dadosCep["bairro"]},"
           "${dadosCep["localidade"]} - ${dadosCep["uf"]} ";
     } else {
-      endereco = 'Cep informado incorretamente ou não encontrado.';
+      endereco = 'CEP informado incorretamente ou não encontrado.';
     }
 
     setState(() {
@@ -46,8 +46,13 @@ class _BuscarCEP extends State<BuscarCEP> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Consulta de CEP"),
-      ),
+          title: Text(
+            "Consulta de CEP",
+            style: TextStyle(
+                fontFamily: 'Lexend', color: Colors.white, fontSize: 20),
+          ),
+          centerTitle: true,
+          backgroundColor: Theme.of(context).colorScheme.primary),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -55,19 +60,31 @@ class _BuscarCEP extends State<BuscarCEP> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: TextField(
+                style: TextStyle(fontFamily: 'Lexend', fontSize: 15),
                 controller: _cepController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'CEP'),
+                decoration: InputDecoration(
+                    labelText: 'CEP',
+                    hintText: 'Digite o CEP que deseja buscar'),
               ),
             ),
-            Text('$_valorRetorno')
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.home,
+                    color:
+                        Theme.of(context).colorScheme.primary), // Ícone de casa
+                SizedBox(width: 8), // Espaço entre o ícone e o texto
+                Text(_valorRetorno), // Resultado da busca
+              ],
+            )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _buscarCep,
-        child: Icon(Icons.search),
-        backgroundColor: Colors.grey,
+        child: Icon(Icons.search, color: Colors.white),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
   }
